@@ -1,0 +1,16 @@
+<h3>{{product['name']}}</h3>
+<p>{{product['category']}}</p>
+<p>Filtro default: {{ product['price'] | default('Sin precio', True) }}</p>
+
+ {{ "<h1>Filtro safe: Hola mundo</h1>" | safe }}
+Filtro truncate: {{ "Este es un texto demasiado largo" | truncate(7) }}
+Filtro count: {{ "Este es un texto demasiado largo" | count }}
+<p>Filtro float: {{ "70.67" | float }}</p>
+<p>Filtro int: {{ "70.67" | int }}</p>
+<p>Filtro de redondeo: {{ 3.14159248843 | round(3) }}</p>
+<p>Filtro de array a texto: {{ ['iPhone','iPad'] | join(',') }}</p>
+<p>Filtro de contar elementos: {{ ['iPhone','iPad'] | length() }}</p>
+<p>Filtro de convertir a json: {{ {'status':True, 'price':45, 'existence':'Yes'}  | tojson }}</p>
+<p>Filtro reverso: {{ "Este es un texto" | reverse }}</p>
+<p>Filtro global custom: {{ 30 | mydouble }}</p>
+{{ 50 | mydouble }}

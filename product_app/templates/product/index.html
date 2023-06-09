@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+    {% for product in products.items if product['price'] %}
+        <div>
+            <a href="{{ url_for('product.show', id=product['id']) }}">{{ product['name'] }}</a>
+            <a href="{{ url_for('product.update', id=product['id']) }}">Editar</a>
+            <a href="{{ url_for('product.delete', id=product['id']) }}">Eliminar</a>
+            {{ loop.index0 }}
+        </div>     
+    {% endfor %}
+
+    <div class=page-items>
+        {{ products.first }} - {{ products.last }} of {{ products.total }}
+      </div>
+      <div class=pagination>
+        {% for page in products.iter_pages() %}
+          {% if page %}
+            {% if page != products.page %}
+              <a href="{{ url_for('product.index', page=page) }}">{{ page }}</a>
+            {% else %}
+              <strong>{{ page }}</strong>
+            {% endif %}
+          {% else %}
+            <span class=ellipsis>…</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+{% endblock %}
