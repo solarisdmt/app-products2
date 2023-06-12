@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/product/style.custom.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawsome/css/all.min.css') }}">
     <title>CRUD</title>
 </head>
 <body>
-    <header>Header de la APP</header>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    {% endwith %}
+    <header>
+        {% include 'fragment/_nav.html' %}
+    </header>
     
-    {% block container %}{% endblock %}
-    <footer>Footer de la APP</footer>
+    <div class="container">
+        {% include 'fragment/_alert.html' %}
+        {% block container %}{% endblock %}
+    </div>
+    
+    <footer> {% include 'fragment/_footer.html' %}</footer>
+    <script src="{{ url_for('static', filename='bootstrap/js/jquery.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/popper.min.js') }}"></script>
 </body>
 </html>

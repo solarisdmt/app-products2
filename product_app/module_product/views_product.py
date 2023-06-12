@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, abort, request, redirect, url_for, flash, get_flashed_messages
 from product_app.module_product.model.products import PRODUCTS
 from product_app.module_product.model.product import Product
+from product_app.module_category.model.category import Category
 from product_app import db
 from product_app.module_product.model.product import ProductForm
 
@@ -18,11 +19,10 @@ def test():
 def index(page=1):
     return render_template('product/index.html', products=Product.query.paginate(page=page,per_page=5))
 
-@product.route('/product/<int:id>')
+@product.route('/product-show/<int:id>')
 def show(id):
     #product=PRODUCTS.get(id)
     product=Product.query.get_or_404(id)
-    print(type(product))
     #if not product:
     #    abort(404)
     return render_template('product/show.html', product=product)
@@ -39,8 +39,13 @@ def delete(id):
 def create():
     #print(get_flashed_messages())
     form=ProductForm(meta={'csrf':False})
+    
+    categories=[(c.id, c.name) for c in Category.query.all()]
+   # print(categories)
+    form.category_id.choices=categories
+    
     if form.validate_on_submit():
-        p=Product(request.form.get('name'), request.form.get('price'))
+        p=Product(request.form.get('name'), request.form.get('price'), request.form.get('category_id'))
         db.session.add(p)
         db.session.commit()
         flash('Producto ingresado con exito')
@@ -53,15 +58,21 @@ def create():
 def update(id):
     product=Product.query.get_or_404(id)
     form=ProductForm(meta={'csrf':False})
+
+    categories=[(c.id, c.name) for c in Category.query.all()]
+    form.category_id.choices=categories
+    #print(product.category)
     
     if request.method == 'GET':
         form.name.data=product.name
         form.price.data=product.price
+        form.category_id.data=product.category_id
     
     if form.validate_on_submit():
         #Actualizar el producto
         product.name=form.name.data
         product.price=form.price.data
+        product.category_id=form.category_id.data
         
         db.session.add(product)
         db.session.commit()

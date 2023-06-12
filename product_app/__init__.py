@@ -7,8 +7,10 @@ app.config.from_object('configuration.DevelopmentConfig')
 db=SQLAlchemy(app)
 
 #importar las vistas
-from product_app.module_product.views import product
+from product_app.module_product.views_product import product
+from product_app.module_category.views_category import category
 app.register_blueprint(product)
+app.register_blueprint(category)
 
 with app.app_context():
     db.create_all()

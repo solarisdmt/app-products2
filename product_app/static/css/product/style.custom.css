@@ -1,0 +1,7 @@
+/*.list-product .odd {
+    background: #c2c3c4;
+}*/
+
+.list-product .card:nth-child(odd) {
+    background: #c2c3c4;
+}

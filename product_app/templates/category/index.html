@@ -3,30 +3,27 @@
 
 {% block container %}
 
-  <a href="{{ url_for('product.create') }}" class="btn btn-primary mt-2 mb-2"><i class="fa fa-plus"></i> Crear</a>
+  <a href="{{ url_for('category.create') }}" class="btn btn-primary mt-2 mb-2"><i class="fa fa-plus"></i> Crear</a>
     <br>
-    <div class="list-product">
-    {% for product in products.items if product['price'] %}
+    <div class="list-category">
+    {% for category in categories.items %}
         <div class="card mt-2 {{ loop.cycle('odd','even') }}">
           <div class="card-body pb-2 pt-3">
             <h3>
-              <a href="{{ url_for('product.show', id=product['id']) }}">{{ product['name'] }}</a>
+              <a href="{{ url_for('category.show', id=category['id']) }}">{{ category['name'] }}</a>
             </h3>  
-            <h5>
-              {{product['category'].name}}
-            </h5>
-              <a class="btn btn-success btn-sm" href="{{ url_for('product.update', id=product['id']) }}"><i class="fa fa-edit"></i> Editar</a>
-              <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-sm" data-name="{{product['name']}}" data-id="{{product['id']}}" href="{{ url_for('product.delete', id=product['id']) }}"><i class="fa fa-trash"></i> Eliminar</Button>    
+              <a class="btn btn-success btn-sm" href="{{ url_for('category.update', id=category['id']) }}"><i class="fa fa-edit"></i> Editar</a>
+              <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-sm" data-name="{{category['name']}}" data-id="{{category['id']}}" href="{{ url_for('category.delete', id=category['id']) }}"><i class="fa fa-trash"></i> Eliminar</Button>    
           </div> 
         </div>       
     {% endfor %}
   </div>
     <br>
       <div class=page-items>
-        {{ products.first }} - {{ products.last }} of {{ products.total }}
+        {{ categories.first }} - {{ categories.last }} of {{ categories.total }}
       </div>
 
-      {{ m_pagination(products) }}
+      {{ m_pagination(categories) }}
 
       <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -56,7 +53,7 @@
             var id = button.data('id')
             var modal = $(this)
             modal.find('.modal-title span').text(name)
-            $('#deleteProduct').attr('href', '/product-delete/'+id)
+            $('#deleteProduct').attr('href', '/category-delete/'+id)
           })
         }
       </script>
