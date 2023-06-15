@@ -2,9 +2,16 @@ from flask import Blueprint, render_template, abort, request, redirect, url_for,
 from product_app.module_category.model.category import Category
 from product_app import db
 from product_app.module_category.model.category import CategoryForm
-
+from flask_login import login_required
+from product_app import rol_admin_need
 
 category=Blueprint('category', __name__)
+
+@category.before_request
+@login_required 
+@rol_admin_need
+def contructor():
+    pass
     
 @category.route('/category')
 @category.route('/category/<int:page>')

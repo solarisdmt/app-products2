@@ -1,0 +1,24 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+<div class="form-small">
+    <h2 class="text-center">Registro</h2>
+    <form action="{{ url_for('fauth.register') }}" method="POST">
+        <div class="form-group">
+            {{ form.username.label }} 
+            {{ form.username(class='form-control') }}
+        </div>
+        
+        <div class="form-group">
+            {{ form.password.label }} 
+            {{ form.password(class='form-control') }}
+        </div>
+
+        <div class="form-group">
+            {{ form.confirm.label }} 
+            {{ form.confirm(class='form-control') }}
+        </div>
+        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Enviar">
+    </div>
+    </form>
+{% endblock %}

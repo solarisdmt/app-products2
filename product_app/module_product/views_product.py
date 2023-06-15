@@ -4,16 +4,24 @@ from product_app.module_product.model.product import Product
 from product_app.module_category.model.category import Category
 from product_app import db
 from product_app.module_product.model.product import ProductForm
+from  flask_login import login_required
 
+from product_app import rol_admin_need
 
 product=Blueprint('product', __name__)
+
+@product.before_request
+@login_required 
+@rol_admin_need
+def contructor():
+    pass
 
 @product.route('/test')
 def test():
     products=Product.query.paginate(page=1,per_page=5).items
     print(products)
     return render_template('product/index.html')
-    
+
 @product.route('/product')
 @product.route('/product/<int:page>')
 def index(page=1):
