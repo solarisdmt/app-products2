@@ -9,9 +9,8 @@ class Category(db.Model):
     name=db.Column(db.String(255))
     products=db.relationship('Product', backref='category', lazy='select')
     
-    def __init__(self, name, price):
+    def __init__(self, name):
         self.name=name
-        self.price=price
         
     def __repr__(self):
         return '[Category %r]' % (self.name)

@@ -27,6 +27,10 @@ def rol_admin_need(f):
         return f(*args, **kwds)
     return wrapper
 
+#registrar rest api
+from product_app.rest_api.category_api import category_view
+from product_app.rest_api.product_api import product_view
+
 #importar las vistas
 from product_app.module_product.views_product import product
 from product_app.module_category.views_category import category
